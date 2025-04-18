@@ -78,6 +78,8 @@ export function deleteProduct(req,res){
         )  
 }
 
+// this is upadate product function
+
 export function updateProduct(req,res){
     if(req.user==null)
         {
