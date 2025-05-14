@@ -6,11 +6,14 @@ import studentRouter from './routes/studentRouter.js';
 import userRouter from './routes/userRouter.js';
 import productRouter from './routes/productRouter.js';
 import verifyJwT from './middleware/auth.js';
+import dotenv from 'dotenv';
+dotenv.config()
+
 
 //mongodb+srv://admin:123@cluster0.c8vfl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 
 let app=express();  // start to run express function for app.in here app will be became as backend sofware.
-mongoose.connect("mongodb+srv://admin:123@cluster0.c8vfl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0").then(
+mongoose.connect(process.env.MONGO_URL).then(
 ()=>{
     console.log("Connected to the database")
 
