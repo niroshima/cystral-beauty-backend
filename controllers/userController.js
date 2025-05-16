@@ -1,6 +1,7 @@
 import User from "../Models/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+
 import dotenv from 'dotenv';
 dotenv.config()
 
@@ -33,9 +34,7 @@ export function loginUser(req,res){
         email:email
     }).then((user)=>{
         if(user==null){
-            res.status(404).json({ // due to user issue put 404
-                message:"Invalid Email"
-            })
+        res.status(404).json({message:"Invalid Email"})
         }else{
             const isPasswordCorrect=bcrypt.compareSync(password,user.password)
         if(isPasswordCorrect){
@@ -46,21 +45,28 @@ export function loginUser(req,res){
             lastName:user.lastName,
             role:user.role,
             phone:user.phone,
-            isDisabled:user.isDisabled
+            isDisabled:user.isDisabled,
+            isEmailVerified:user.isEmailVerified
            }
            console.log(userData)
            const token=jwt.sign(userData,process.env.JWT_KEY)//making a token with content and our key
-        res.json({
+         res.json({
                 message:"Login successful",
                 token: token,
+                user:userData
            });
         
         }else{
-            res.status(403).json({
+           res.status(403).json({
                 message:"invalid password"
             })
         }
         }
 
-    })
+    }).catch((error) => {
+            console.error("❌ Login error:", error);
+            return res.status(500).json({
+                message: "Internal Server Error"
+            });
+        });
 }

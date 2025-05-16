@@ -7,12 +7,16 @@ import userRouter from './routes/userRouter.js';
 import productRouter from './routes/productRouter.js';
 import verifyJwT from './middleware/auth.js';
 import dotenv from 'dotenv';
+import cors from 'cors';
 dotenv.config()
 
 
 //mongodb+srv://admin:123@cluster0.c8vfl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 
-let app=express();  // start to run express function for app.in here app will be became as backend sofware.
+const app=express();  // start to run express function for app.in here app will be became as backend sofware.
+
+app.use(cors());
+app.use(bodyParser.json());//atharamadiya danawa madata
 mongoose.connect(process.env.MONGO_URL).then(
 ()=>{
     console.log("Connected to the database")
@@ -29,7 +33,7 @@ mongoose.connect(process.env.MONGO_URL).then(
 //}
 //app.listen(5000,taskComplete)
 
-app.use(bodyParser.json());//atharamadiya danawa madata
+
 app.use(verifyJwT)//middleware for token handling
 
 app.use("/api/user",userRouter);

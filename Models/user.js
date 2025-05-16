@@ -34,11 +34,11 @@ isDisabled:{
     required:true,
     default:false
 },
-//isEmailVerified:{
-   // type:Boolean,
-    //required:true,
-    //defalut:false
-//},
+ isEmailVerified : {
+        type : Boolean,
+        required : true,
+        default : false
+    },
 }
 
 )
