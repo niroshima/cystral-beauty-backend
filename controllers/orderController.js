@@ -39,7 +39,7 @@ if(lastBills.length==0){
         orderData.orderId="ORD"+newOrderNumberStr;
 
     }
-
+//generating billItem array with finding total
     for(let i=0;i<body.billItems.length;i++)
     {
         const product=await Product.findOne({productId:body.billItems[i].productId});
@@ -58,7 +58,7 @@ if(lastBills.length==0){
     };
     orderData.total=orderData.total+product.price*body.billItems[i].quantity
     }
-
+//save the order
     const order=new Order(orderData);
     order.save().then(()=>{
         res.json({message:"Order saved successfully"});
