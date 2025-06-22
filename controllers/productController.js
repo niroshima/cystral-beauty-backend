@@ -1,5 +1,5 @@
 import Product from "../Models/product.js";
-export function createProduct(req,res){
+export async function createProduct(req,res){
     if(req.user==null)
     {
         res.status(403).json({
@@ -15,20 +15,13 @@ export function createProduct(req,res){
         return;
     }
     const product=new Product(req.body);
-    product.save().then(
-        ()=>{
-            res.json({
-                message:"Product saved successfully"})
-        }
-    ).catch(
-        (err)=>{
-            console.log(err);
-            res.status(500).json({
-                message:"Product not saved"
-            })
-
-        }
-    )  
+    try{
+        await product.save()
+        res.json({message:"Product saved successfully"})
+    }catch(err){
+        res.status(500).json({message:"Product not saved"})
+    }
+    
 }
 
 export function getProduct(req,res){
@@ -45,6 +38,19 @@ export function getProduct(req,res){
     )
 }
 
+//get product ID for overview page
+export async function getProductById(req,res){
+    const productId=req.params.id
+    const product=await Product.findOne({productId:productId})
+    if(product==null)
+    {
+        res.status(404).json({message:"Product not found"})
+          return
+    }
+  res.json({
+    product:product
+  })
+}
 export function deleteProduct(req,res){
     if(req.user==null)
         {
