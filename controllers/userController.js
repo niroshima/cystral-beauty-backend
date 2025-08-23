@@ -169,3 +169,18 @@ export function getCurrentUser(req,res){
 	})
 }
 
+export function getUser(req,res){
+	User.find().then(
+		(users)=>{
+			res.json(users)
+		}
+	).catch(
+		(err)=>{
+			res.status(500).json({
+				message:"User not found"
+			})
+		}
+	)
+}
+
+

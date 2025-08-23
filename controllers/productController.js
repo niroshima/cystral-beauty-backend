@@ -118,3 +118,26 @@ export function updateProduct(req,res){
             }
         )   
 }
+
+//Search Function
+
+export async function searchProduct(req,res){
+      const search = req.params.query;
+    try{
+        const products=await Product.find({$or:[
+            {name:{$regex: search,$options:"i"}},
+            {altName:{$elemMatch: {$regex: search,$options:"i"}}},
+        ],
+    });
+    res.json({
+        products:products,});
+    }catch(err)
+    {
+        res.status(500).json({
+            message:"Error in searching product",
+        });
+return;
+}
+}
+
+

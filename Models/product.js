@@ -35,6 +35,10 @@ stock:{
     type:Number,
     required:true
 },
+category:{
+    type:String,
+    required:true
+},
 })
 
 const Product=mongoose.model("products", productSchema);

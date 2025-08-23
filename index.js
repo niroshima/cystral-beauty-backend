@@ -9,6 +9,7 @@ import verifyJwT from './middleware/auth.js';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import orderRouter from './routes/orderRouter.js';
+import contactRouter from './routes/contactRouter.js';
 dotenv.config()
 
 
@@ -41,6 +42,8 @@ app.use("/api/user",userRouter);
 app.use("/api/product",productRouter);
 app.use("/api/student",studentRouter);//student kenek hoyagena awoth e wadeta StudentRouter sambanda karanna
 app.use("/api/order",orderRouter);
+app.use("/api/contact", contactRouter);
+
 //Day 4 ekedi mewa route ekata dala kala
 //app.get("/",
  //   (req,res)=>{ //take details of reuest and response 
