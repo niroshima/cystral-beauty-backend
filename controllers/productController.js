@@ -119,7 +119,7 @@ export function updateProduct(req,res){
         )   
 }
 
-//Search Function
+//Search product Function
 
 export async function searchProduct(req,res){
       const search = req.params.query;
@@ -139,5 +139,22 @@ export async function searchProduct(req,res){
 return;
 }
 }
+
+// Search products by category
+export async function searchByCategory(req, res) {
+  const category = req.params.category;
+  try {
+    const products = await Product.find({
+      category: { $regex: category, $options: "i" }  // case-insensitive
+    });
+
+    res.json({ products });
+  } catch (err) {
+    res.status(500).json({
+      message: "Error in searching products by category",
+    });
+  }
+}
+
 
 
