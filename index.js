@@ -20,17 +20,17 @@ const app=express();  // start to run express function for app.in here app will 
 
 app.use(cors());
 app.use(bodyParser.json());//atharamadiya danawa madata
-mongoose.connect(process.env.MONGO_URL).then(
-()=>{
-    console.log("Connected to the database")
-
-} 
-).catch(
-    ()=>{
-        console.log("Connection failed")
-    
-    }  
-)
+mongoose.connect(process.env.MONGO_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => {
+  console.log("✅ Connected to MongoDB database successfully");
+})
+.catch((err) => {
+  console.error("❌ MongoDB connection failed!");
+  console.error("Error message:", err.message);
+});
 //function taskComplete(){
     //console.log("Task Completed")
 //}
